@@ -18,12 +18,6 @@ from flask_jwt_extended import JWTManager
 app.config["JWT_SECRET_KEY"]="super-secret" #Cambiar por el que se conveniente
 jwt = JWTManager(app)
 
-@app.route("/",methods=['GET'])
-def test():
-    json = {}
-    json["message"]="Server running ..."
-    return jsonify(json)
-
 @app.route("/login", methods=["POST"])
 def create_token():
     data = request.get_json()
@@ -38,6 +32,11 @@ def create_token():
     else:
         return jsonify({"msg": "Bad username or password"}), 401
 
+@app.route("/",methods=['GET'])
+def test():
+    json = {}
+    json["message"]="Server running ..."
+    return jsonify(json)
 
 @app.before_request
 def before_request_callback():
