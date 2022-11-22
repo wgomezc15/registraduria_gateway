@@ -130,49 +130,49 @@ def eliminarCandidato(id):
 """Implementacion metodo main para mesas"""
 
 
-@app.route("/mesas", methods=['GET'])
+@app.route("/mesa", methods=['GET'])
 def getMesas():
     headers = {"Content-Type": "application/json; charset=utf-8"}
-    url = dataConfig["url-backend-academic"] + '/mesa'
+    url = dataConfig["url-backend-academic"] + '/mesas'
     response = requests.get(url, headers=headers)
-    json = miControladorMesa.index()
+    json = response.json()
     return jsonify(json)
 
-@app.route("/mesas", methods=['POST'])
+@app.route("/mesa", methods=['POST'])
 def crearMesa():
     data = request.get_json()
     headers = {"Content-Type": "application/json; charset=utf-8"}
-    url = dataConfig["url-backend-academic"] + '/mesa'
+    url = dataConfig["url-backend-academic"] + '/mesas'
     response = requests.post(url, headers=headers, json=data)
-    json = miControladorMesa.create(data)
+    json = response.json()
     return jsonify(json)
 
 
-@app.route("/mesas/<string:id>", methods=['GET'])
+@app.route("/mesa/<string:id>", methods=['GET'])
 def getMesa(id):
     headers = {"Content-Type": "application/json; charset=utf-8"}
-    url = dataConfig["url-backend-academic"] + '/mesa/' + id
+    url = dataConfig["url-backend-academic"] + '/mesas/' + id
     response = requests.get(url, headers=headers)
-    json = miControladorMesa.show(id)
+    json = response.json()
     return jsonify(json)
 
 
-@app.route("/mesas/<string:id>", methods=['PUT'])
+@app.route("/mesa/<string:id>", methods=['PUT'])
 def modificarMesa(id):
     data = request.get_json()
     headers = {"Content-Type": "application/json; charset=utf-8"}
-    url = dataConfig["url-backend-academic"] + '/mesa/' + id
+    url = dataConfig["url-backend-academic"] + '/mesas/' + id
     response = requests.put(url, headers=headers, json=data)
-    json = miControladorMesa.update(id, data)
+    json = response.json()
     return jsonify(json)
 
 
-@app.route("/mesas/<string:id>", methods=['DELETE'])
+@app.route("/mesa/<string:id>", methods=['DELETE'])
 def eliminarMesa(id):
     headers = {"Content-Type": "application/json; charset=utf-8"}
-    url = dataConfig["url-backend-academic"] + '/mesa/' + id
+    url = dataConfig["url-backend-academic"] + '/mesas/' + id
     response = requests.delete(url, headers=headers)
-    json = miControladorMesa.delete(id)
+    json = response.json()
     return jsonify(json)
 
 
@@ -180,127 +180,127 @@ def eliminarMesa(id):
 """Implementacion metodo main para partidos"""
 
 
-@app.route("/partidos", methods=['GET'])
+@app.route("/partido", methods=['GET'])
 def getPartidos():
     headers = {"Content-Type": "application/json; charset=utf-8"}
-    url = dataConfig["url-backend-academic"] + '/partido'
+    url = dataConfig["url-backend-academic"] + '/partidos'
     response = requests.get(url, headers=headers)
-    json = miControladorPartido.index()
+    json = response.json()
     return jsonify(json)
 
 
-@app.route("/partidos", methods=['POST'])
+@app.route("/partido", methods=['POST'])
 def crearPartido():
     data = request.get_json()
     headers = {"Content-Type": "application/json; charset=utf-8"}
-    url = dataConfig["url-backend-academic"] + '/partido'
+    url = dataConfig["url-backend-academic"] + '/partidos'
     response = requests.post(url, headers=headers, json=data)
-    json = miControladorPartido.create(data)
+    json = response.json()
     return jsonify(json)
 
 
-@app.route("/partidos/<string:id>", methods=['GET'])
+@app.route("/partido/<string:id>", methods=['GET'])
 def getPartido(id):
     headers = {"Content-Type": "application/json; charset=utf-8"}
-    url = dataConfig["url-backend-academic"] + '/partido/' + id
+    url = dataConfig["url-backend-academic"] + '/partidos/' + id
     response = requests.get(url, headers=headers)
-    json = miControladorPartido.show(id)
+    json = response.json()
     return jsonify(json)
 
 
-@app.route("/partidos/<string:id>", methods=['PUT'])
+@app.route("/partido/<string:id>", methods=['PUT'])
 def modificarPartido(id):
     data = request.get_json()
     headers = {"Content-Type": "application/json; charset=utf-8"}
-    url = dataConfig["url-backend-academic"] + '/partido/' + id
+    url = dataConfig["url-backend-academic"] + '/partidos/' + id
     response = requests.put(url, headers=headers, json=data)
-    json = miControladorPartido.update(id, data)
+    json = response.json()
     return jsonify(json)
 
 
-@app.route("/partidos/<string:id>", methods=['DELETE'])
+@app.route("/partido/<string:id>", methods=['DELETE'])
 def eliminarPartido(id):
     headers = {"Content-Type": "application/json; charset=utf-8"}
-    url = dataConfig["url-backend-academic"] + '/partido/' + id
+    url = dataConfig["url-backend-academic"] + '/partidos/' + id
     response = requests.delete(url, headers=headers)
-    json = miControladorPartido.delete(id)
+    json = response.json()
     return jsonify(json)
 
 ###############
 
 """Implementacion metodo main para resultados"""
 
-@app.route("/resultados", methods=['GET'])
+@app.route("/resultado", methods=['GET'])
 def getResultados():
     headers = {"Content-Type": "application/json; charset=utf-8"}
-    url = dataConfig["url-backend-academic"] + '/resultado'
+    url = dataConfig["url-backend-academic"] + '/resultados'
     response = requests.get(url, headers=headers)
-    json = miControladorResultado.index()
+    json = response.json()
     return jsonify(json)
 
 
-@app.route("/resultados/<string:id>", methods=['GET'])
+@app.route("/resultado/<string:id>", methods=['GET'])
 def getResultado(id):
     headers = {"Content-Type": "application/json; charset=utf-8"}
-    url = dataConfig["url-backend-academic"] + '/resultado' + id
+    url = dataConfig["url-backend-academic"] + '/resultados/' + id
     response = requests.get(url, headers=headers)
-    json = miControladorResultado.show(id)
+    json = response.json()
     return jsonify(json)
 
 
-@app.route("/resultados/partido/<string:id_partido>/candidato/<string:id_candidato>/mesa/<string:id_mesa>", methods=['POST'])
+@app.route("/resultado/partido/<string:id_partido>/candidato/<string:id_candidato>/mesa/<string:id_mesa>", methods=['POST'])
 def crearResultado(id_partido,id_candidato, id_mesa):
     data = request.get_json()
     headers = {"Content-Type": "application/json; charset=utf-8"}
-    url = dataConfig["url-backend-academic"] + '/resultado' + id_partido, id_candidato, id_mesa
+    url = dataConfig["url-backend-academic"] + '/resultados/partido/' + id_partido + '/candidato/' + id_candidato + '/mesa/' + id_mesa
     response = requests.get(url, headers=headers)
-    json = miControladorResultado.create(data,id_partido, id_candidato, id_mesa)
+    json = response.json()
     return jsonify(json)
 
 
-@app.route("/resultados/<string:id_resultado>/partido/<string:id_partido>/candidato/<string:id_candidato>/mesa/<string:id_mesa>", methods=['PUT'])
+@app.route("/resultado/<string:id_resultado>/partido/<string:id_partido>/candidato/<string:id_candidato>/mesa/<string:id_mesa>", methods=['PUT'])
 def modificarResultado(id_resultado,id_partido, id_candidato, id_mesa):
     data = request.get_json()
     headers = {"Content-Type": "application/json; charset=utf-8"}
-    url = dataConfig["url-backend-academic"] + '/resultado' + id_resultado, id_partido, id_candidato, id_mesa
+    url = dataConfig["url-backend-academic"] + '/resultados' + id_resultado, id_partido, id_candidato, id_mesa
     response = requests.get(url, headers=headers)
-    json = miControladorResultado.update(id_resultado, data,id_partido, id_candidato, id_mesa)
+    json = response.json()
     return jsonify(json)
 
 
-@app.route("/resultados/<string:id_resultado>", methods=['DELETE'])
+@app.route("/resultado/<string:id_resultado>", methods=['DELETE'])
 def eliminarResultado(id_resultado):
     headers = {"Content-Type": "application/json; charset=utf-8"}
-    url = dataConfig["url-backend-academic"] + '/resultado' + id_resultado
+    url = dataConfig["url-backend-academic"] + '/resultados' + id_resultado
     response = requests.get(url, headers=headers)
-    json = miControladorResultado.delete(id_resultado)
+    json = response.json()
     return jsonify(json)
 
 
-@app.route("/resultados/mesa/<string:id_mesa>", methods=['GET'])
+@app.route("/resultado/mesa/<string:id_mesa>", methods=['GET'])
 def inscritosEnMesa(id_mesa):
     headers = {"Content-Type": "application/json; charset=utf-8"}
-    url = dataConfig["url-backend-academic"] + '/resultado' + id_mesa
+    url = dataConfig["url-backend-academic"] + '/resultados' + id_mesa
     response = requests.get(url, headers=headers)
-    json = miControladorResultado.listarInscritosEnMesa(id_mesa)
+    json = response.json()
     return jsonify(json)
 
 
-@app.route("/resultados/votaciones_mayores", methods=['GET'])
+@app.route("/resultado/votaciones_mayores", methods=['GET'])
 def getVotacionesMayores(miControladorResultado):
     headers = {"Content-Type": "application/json; charset=utf-8"}
-    url = dataConfig["url-backend-academic"] + '/resultado'
+    url = dataConfig["url-backend-academic"] + '/resultados'
     response = requests.get(url, headers=headers)
-    json = miControladorResultado.votacionesMasAltasPorpartido()
+    json = response.json()
     return jsonify(json)
 
 
-@app.route("/resultados/promedio_votaciones/mesa/<string:id_mesa>", methods=['GET'])
+@app.route("/resultado/promedio_votaciones/mesa/<string:id_mesa>", methods=['GET'])
 def getPromedioVotacionEnMesa(id_mesa):
     headers = {"Content-Type": "application/json; charset=utf-8"}
-    url = dataConfig["url-backend-academic"] + '/resultado' + id_mesa
+    url = dataConfig["url-backend-academic"] + '/resultados' + id_mesa
     response = requests.get(url, headers=headers)
-    json = miControladorResultado.promedioVotacionEnMesa(id_mesa)
+    json = response.json()
     return jsonify(json)
 
 
