@@ -15,7 +15,9 @@ from flask_jwt_extended import create_access_token, verify_jwt_in_request
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
-app.config["JWT_SECRET_KEY"]="super-secret" #Cambiar por el que se conveniente
+
+"""crear Token"""
+app.config["JWT_SECRET_KEY"]="super-secret"
 jwt = JWTManager(app)
 
 @app.route("/login", methods=["POST"])
@@ -38,6 +40,7 @@ def test():
     json["message"]="Server running ..."
     return jsonify(json)
 
+"""Middleware"""
 @app.before_request
 def before_request_callback():
     endPoint=limpiarURL(request.path)
@@ -78,9 +81,7 @@ def validarPermiso(endPoint,metodo,idRol):
         pass
     return tienePermiso
 
-
-###############
-
+"""Endpoints candidatos"""
 @app.route("/candidato", methods=['GET'])
 def getCandidatos():
     headers = {"Content-Type": "application/json; charset=utf-8"}
@@ -127,8 +128,7 @@ def eliminarCandidato(id):
     return jsonify(json)
 
 ###############
-"""Implementacion metodo main para mesas"""
-
+"""Endpoint mesas"""
 
 @app.route("/mesa", methods=['GET'])
 def getMesas():
@@ -177,8 +177,7 @@ def eliminarMesa(id):
 
 
 ###############
-"""Implementacion metodo main para partidos"""
-
+"""Endpoints partidos"""
 
 @app.route("/partido", methods=['GET'])
 def getPartidos():
@@ -228,7 +227,7 @@ def eliminarPartido(id):
 
 ###############
 
-"""Implementacion metodo main para resultados"""
+"""endpoints resultados"""
 
 @app.route("/resultado", methods=['GET'])
 def getResultados():
@@ -262,7 +261,7 @@ def crearResultado(id_partido,id_candidato, id_mesa):
 def modificarResultado(id_resultado,id_partido, id_candidato, id_mesa):
     data = request.get_json()
     headers = {"Content-Type": "application/json; charset=utf-8"}
-    url = dataConfig["url-backend-academic"] + '/resultados' + id_resultado, id_partido, id_candidato, id_mesa
+    url = dataConfig["url-backend-academic"] + '/resultados/' + id_resultado + '/partido/' + id_partido + '/candidato/' + id_candidato + '/mesa/'+ id_mesa
     response = requests.get(url, headers=headers)
     json = response.json()
     return jsonify(json)
@@ -271,7 +270,7 @@ def modificarResultado(id_resultado,id_partido, id_candidato, id_mesa):
 @app.route("/resultado/<string:id_resultado>", methods=['DELETE'])
 def eliminarResultado(id_resultado):
     headers = {"Content-Type": "application/json; charset=utf-8"}
-    url = dataConfig["url-backend-academic"] + '/resultados' + id_resultado
+    url = dataConfig["url-backend-academic"] + '/resultados/' + id_resultado
     response = requests.get(url, headers=headers)
     json = response.json()
     return jsonify(json)
@@ -280,7 +279,7 @@ def eliminarResultado(id_resultado):
 @app.route("/resultado/mesa/<string:id_mesa>", methods=['GET'])
 def inscritosEnMesa(id_mesa):
     headers = {"Content-Type": "application/json; charset=utf-8"}
-    url = dataConfig["url-backend-academic"] + '/resultados' + id_mesa
+    url = dataConfig["url-backend-academic"] + '/resultados/mesa' + id_mesa
     response = requests.get(url, headers=headers)
     json = response.json()
     return jsonify(json)
@@ -289,7 +288,7 @@ def inscritosEnMesa(id_mesa):
 @app.route("/resultado/votaciones_mayores", methods=['GET'])
 def getVotacionesMayores(miControladorResultado):
     headers = {"Content-Type": "application/json; charset=utf-8"}
-    url = dataConfig["url-backend-academic"] + '/resultados'
+    url = dataConfig["url-backend-academic"] + '/resultados/votaciones_mayores'
     response = requests.get(url, headers=headers)
     json = response.json()
     return jsonify(json)
@@ -298,13 +297,10 @@ def getVotacionesMayores(miControladorResultado):
 @app.route("/resultado/promedio_votaciones/mesa/<string:id_mesa>", methods=['GET'])
 def getPromedioVotacionEnMesa(id_mesa):
     headers = {"Content-Type": "application/json; charset=utf-8"}
-    url = dataConfig["url-backend-academic"] + '/resultados' + id_mesa
+    url = dataConfig["url-backend-academic"] + '/resultados/promedio_votaciones/mesa/' + id_mesa
     response = requests.get(url, headers=headers)
     json = response.json()
     return jsonify(json)
-
-
-
 
 
 def loadFileConfig():
